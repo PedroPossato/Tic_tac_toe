@@ -21,11 +21,19 @@ fim = 0
 jogadas_vitoria = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]]
 no_draw = 0
 allowed = 0
+nan = 1
 desenha = [' ',' ',' ',' ',' ',' ',' ',' ',' ']
 
 while fim==0:
     print "1 -> jogador | 2 -> cpu\nQuem comeca?"
-    decisao = input()
+    while nan==1:
+        decisao_ant = raw_input()
+        if decisao_ant.isdigit():
+            decisao = int(decisao_ant)
+            nan = 0
+        else:
+            print "Nao entendi, repita por favor!"
+    nan = 1
     if decisao == 1:
         jogador_comeca = True
         fim = 1
@@ -38,7 +46,14 @@ while fim==0:
 while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0):
     if (jogador_comeca == True and espacos>0):
         while allowed == 0:
-            temp = input("Jogador joga:\n")
+            while nan==1:
+                temp_ant = raw_input("Jogador joga:\n")
+                if temp_ant.isdigit():
+                    temp = int(temp_ant)
+                    nan = 0
+                else:
+                    print "Nao entendi, repita por favor!"
+            nan = 1
             if temp not in jogadas_jogador and temp not in jogadas_cpu and temp>0 and temp<10:
                 jogadas_jogador.append(temp)
                 desenha[temp-1] = 'x'
@@ -50,7 +65,14 @@ while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0):
         espacos-=1
         if fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0:
             while allowed == 0:
-                temp = input("CPU joga:\n")
+                while nan==1:
+                    temp_ant = raw_input("CPU joga:\n")
+                    if temp_ant.isdigit():
+                        temp = int(temp_ant)
+                        nan = 0
+                    else:
+                        print "Nao entendi, repita por favor!"
+                nan = 1
                 if temp not in jogadas_jogador and temp not in jogadas_cpu and temp>0 and temp<10:
                     jogadas_cpu.append(temp)
                     desenha[temp-1] = 'o'
@@ -62,7 +84,14 @@ while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0):
             espacos-=1
     elif espacos>0:
         while allowed == 0:
-            temp = input("CPU joga:\n")
+            while nan==1:
+                temp_ant = raw_input("CPU joga:\n")
+                if temp_ant.isdigit():
+                    temp = int(temp_ant)
+                    nan = 0
+                else:
+                    print "Nao entendi, repita por favor!"
+            nan = 1
             if temp not in jogadas_jogador and temp not in jogadas_cpu and temp>0 and temp<10:
                 jogadas_cpu.append(temp)
                 desenha[temp-1] = 'o'
@@ -74,7 +103,14 @@ while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0):
         espacos-=1
         if fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0:
             while allowed == 0:
-                temp = input("Jogador joga:\n")
+                while nan==1:
+                    temp_ant = raw_input("Jogador joga:\n")
+                    if temp_ant.isdigit():
+                        temp = int(temp_ant)
+                        nan = 0
+                    else:
+                        print "Nao entendi, repita por favor!"
+                nan = 1
                 if temp not in jogadas_jogador and temp not in jogadas_cpu and temp>0 and temp<10:
                     jogadas_jogador.append(temp)
                     desenha[temp-1] = 'x'

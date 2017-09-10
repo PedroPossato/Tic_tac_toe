@@ -6,6 +6,15 @@ def fim_de_jogo(n,p):
             return True
     return False
 
+def desenhaJogo(desenha):
+    print ""
+    print "",desenha[0],"|",desenha[1],"|",desenha[2]
+    print "-----------"
+    print "",desenha[3],"|",desenha[4],"|",desenha[5]
+    print "-----------"
+    print "",desenha[6],"|",desenha[7],"|",desenha[8]
+    print ""
+
 jogadas_jogador = []
 jogadas_cpu = []
 espacos = 9
@@ -35,13 +44,7 @@ while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0):
                 jogadas_jogador.append(temp)
                 desenha[temp-1] = 'x'
                 allowed = 1
-                print ""
-                print "",desenha[0],"|",desenha[1],"|",desenha[2]
-                print "-----------"
-                print "",desenha[3],"|",desenha[4],"|",desenha[5]
-                print "-----------"
-                print "",desenha[6],"|",desenha[7],"|",desenha[8]
-                print ""
+                desenhaJogo(desenha)
             else:
                 print "Nao entendi, repita por favor!"
         allowed = 0
@@ -53,13 +56,7 @@ while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0):
                     jogadas_cpu.append(temp)
                     desenha[temp-1] = 'o'
                     allowed = 1
-                    print ""
-                    print "",desenha[0],"|",desenha[1],"|",desenha[2]
-                    print "-----------"
-                    print "",desenha[3],"|",desenha[4],"|",desenha[5]
-                    print "-----------"
-                    print "",desenha[6],"|",desenha[7],"|",desenha[8]
-                    print ""
+                    desenhaJogo(desenha)
                 else:
                     print "Nao entendi, repita por favor!"
             allowed = 0
@@ -71,13 +68,7 @@ while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0):
                 jogadas_cpu.append(temp)
                 desenha[temp-1] = 'o'
                 allowed = 1
-                print ""
-                print "",desenha[0],"|",desenha[1],"|",desenha[2]
-                print "-----------"
-                print "",desenha[3],"|",desenha[4],"|",desenha[5]
-                print "-----------"
-                print "",desenha[6],"|",desenha[7],"|",desenha[8]
-                print ""
+                desenhaJogo(desenha)
             else:
                 print "Nao entendi, repita por favor!"
         allowed = 0
@@ -89,13 +80,7 @@ while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0):
                     jogadas_jogador.append(temp)
                     desenha[temp-1] = 'x'
                     allowed = 1
-                    print ""
-                    print "",desenha[0],"|",desenha[1],"|",desenha[2]
-                    print "-----------"
-                    print "",desenha[3],"|",desenha[4],"|",desenha[5]
-                    print "-----------"
-                    print "",desenha[6],"|",desenha[7],"|",desenha[8]
-                    print ""
+                    desenhaJogo(desenha)
                 else:
                     print "Nao entendi, repita por favor!"
             allowed = 0

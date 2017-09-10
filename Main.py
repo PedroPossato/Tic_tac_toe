@@ -14,6 +14,9 @@ def desenhaJogo(desenha):
     print "",desenha[6],"|",desenha[7],"|",desenha[8]
     print ""
 
+def error():
+    print "Nao entendi, repita por favor!"
+
 jogadas_jogador = []
 jogadas_cpu = []
 espacos = 9
@@ -32,7 +35,7 @@ while fim==0:
             decisao = int(decisao_ant)
             nan = 0
         else:
-            print "Nao entendi, repita por favor!"
+            error()
     nan = 1
     if decisao == 1:
         jogador_comeca = True
@@ -41,7 +44,7 @@ while fim==0:
         jogador_comeca = False
         fim = 1
     else:
-        print "Nao entendi, repita por favor!"
+        error()
 
 while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0):
     if (jogador_comeca == True and espacos>0):
@@ -52,7 +55,7 @@ while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0):
                     temp = int(temp_ant)
                     nan = 0
                 else:
-                    print "Nao entendi, repita por favor!"
+                    error()
             nan = 1
             if temp not in jogadas_jogador and temp not in jogadas_cpu and temp>0 and temp<10:
                 jogadas_jogador.append(temp)
@@ -60,7 +63,7 @@ while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0):
                 allowed = 1
                 desenhaJogo(desenha)
             else:
-                print "Nao entendi, repita por favor!"
+                error()
         allowed = 0
         espacos-=1
         if fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0:
@@ -71,7 +74,7 @@ while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0):
                         temp = int(temp_ant)
                         nan = 0
                     else:
-                        print "Nao entendi, repita por favor!"
+                        error()
                 nan = 1
                 if temp not in jogadas_jogador and temp not in jogadas_cpu and temp>0 and temp<10:
                     jogadas_cpu.append(temp)
@@ -79,7 +82,7 @@ while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0):
                     allowed = 1
                     desenhaJogo(desenha)
                 else:
-                    print "Nao entendi, repita por favor!"
+                    error()
             allowed = 0
             espacos-=1
     elif espacos>0:
@@ -90,7 +93,7 @@ while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0):
                     temp = int(temp_ant)
                     nan = 0
                 else:
-                    print "Nao entendi, repita por favor!"
+                    error()
             nan = 1
             if temp not in jogadas_jogador and temp not in jogadas_cpu and temp>0 and temp<10:
                 jogadas_cpu.append(temp)
@@ -98,7 +101,7 @@ while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0):
                 allowed = 1
                 desenhaJogo(desenha)
             else:
-                print "Nao entendi, repita por favor!"
+                error()
         allowed = 0
         espacos-=1
         if fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0:
@@ -109,7 +112,7 @@ while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0):
                         temp = int(temp_ant)
                         nan = 0
                     else:
-                        print "Nao entendi, repita por favor!"
+                        error()
                 nan = 1
                 if temp not in jogadas_jogador and temp not in jogadas_cpu and temp>0 and temp<10:
                     jogadas_jogador.append(temp)
@@ -117,7 +120,7 @@ while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0):
                     allowed = 1
                     desenhaJogo(desenha)
                 else:
-                    print "Nao entendi, repita por favor!"
+                    error()
             allowed = 0
             espacos-=1
 

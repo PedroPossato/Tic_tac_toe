@@ -13,6 +13,7 @@ fim = 0
 jogadas_vitoria = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]]
 no_draw = 0
 allowed = 0
+desenha = [' ',' ',' ',' ',' ',' ',' ',' ',' ']
 
 while fim==0:
     print "1 -> jogador | 2 -> cpu\nQuem comeca?"
@@ -32,7 +33,15 @@ while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0):
             temp = input("Jogador joga:\n")
             if temp not in jogadas_jogador and temp not in jogadas_cpu and temp>0 and temp<10:
                 jogadas_jogador.append(temp)
+                desenha[temp-1] = 'x'
                 allowed = 1
+                print ""
+                print "",desenha[0],"|",desenha[1],"|",desenha[2]
+                print "-----------"
+                print "",desenha[3],"|",desenha[4],"|",desenha[5]
+                print "-----------"
+                print "",desenha[6],"|",desenha[7],"|",desenha[8]
+                print ""
             else:
                 print "Nao entendi, repita por favor!"
         allowed = 0
@@ -42,7 +51,15 @@ while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0):
                 temp = input("CPU joga:\n")
                 if temp not in jogadas_jogador and temp not in jogadas_cpu and temp>0 and temp<10:
                     jogadas_cpu.append(temp)
+                    desenha[temp-1] = 'o'
                     allowed = 1
+                    print ""
+                    print "",desenha[0],"|",desenha[1],"|",desenha[2]
+                    print "-----------"
+                    print "",desenha[3],"|",desenha[4],"|",desenha[5]
+                    print "-----------"
+                    print "",desenha[6],"|",desenha[7],"|",desenha[8]
+                    print ""
                 else:
                     print "Nao entendi, repita por favor!"
             allowed = 0
@@ -52,7 +69,15 @@ while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0):
             temp = input("CPU joga:\n")
             if temp not in jogadas_jogador and temp not in jogadas_cpu and temp>0 and temp<10:
                 jogadas_cpu.append(temp)
+                desenha[temp-1] = 'o'
                 allowed = 1
+                print ""
+                print "",desenha[0],"|",desenha[1],"|",desenha[2]
+                print "-----------"
+                print "",desenha[3],"|",desenha[4],"|",desenha[5]
+                print "-----------"
+                print "",desenha[6],"|",desenha[7],"|",desenha[8]
+                print ""
             else:
                 print "Nao entendi, repita por favor!"
         allowed = 0
@@ -62,7 +87,15 @@ while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False and espacos>0):
                 temp = input("Jogador joga:\n")
                 if temp not in jogadas_jogador and temp not in jogadas_cpu and temp>0 and temp<10:
                     jogadas_jogador.append(temp)
+                    desenha[temp-1] = 'x'
                     allowed = 1
+                    print ""
+                    print "",desenha[0],"|",desenha[1],"|",desenha[2]
+                    print "-----------"
+                    print "",desenha[3],"|",desenha[4],"|",desenha[5]
+                    print "-----------"
+                    print "",desenha[6],"|",desenha[7],"|",desenha[8]
+                    print ""
                 else:
                     print "Nao entendi, repita por favor!"
             allowed = 0

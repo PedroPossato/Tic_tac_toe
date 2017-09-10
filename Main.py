@@ -1,6 +1,5 @@
 def fim_de_jogo(n,p):
     jogadas_vitoria = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]]
-    vit = 0
     for i in range(len(jogadas_vitoria)):
         if (jogadas_vitoria[i][0] in n and jogadas_vitoria[i][1] in n and jogadas_vitoria[i][2] in n) or (jogadas_vitoria[i][0] in p and jogadas_vitoria[i][1] in p and jogadas_vitoria[i][2] in p):
             return True

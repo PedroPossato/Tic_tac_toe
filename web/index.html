@@ -1,10 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title> Tic Tac Toe </title>
+    <style type="text/css">
+        table {
+            width: 40%;
+            border-collapse: collapse;
+        }
+        td {
+            width: 33%;
+            height: 33%;
+            background-color: #f0f0f0;
+            border: 6px solid #222;
+            cursor: pointer;
+        }
+        td:after {
+            content: "";
+            display: block;
+            margin-top: 100%;
+        }
+        td:first-of-type {
+            border-left-color: transparent;
+            border-top-color: transparent;
+        }
+        td:nth-of-type(2) {
+            border-top-color: transparent;
+        }
+        td:nth-of-type(3) {
+            border-right-color: transparent;
+            border-top-color: transparent;
+        }
+        tr:nth-of-type(3) td {
+            border-bottom-color: transparent;
+        }
+
+        td.o, td.x {
+            cursor: default;
+        }
+
+        td.x {
+            background-color: #cc3333;
+        }
+        td.o {
+            background-color: #3333cc;
+        }
+
+    </style>
 </head>
 <body>
+    <table>
+        <tbody>
+            <tr>
+                <td onclick="c(1,this);"></td>
+                <td onclick="c(2,this);"></td>
+                <td onclick="c(3,this);"></td>
+            </tr>
+            <tr>
+                <td onclick="c(4,this);"></td>
+                <td onclick="c(5,this);"></td>
+                <td onclick="c(6,this);"></td>
+            </tr>
+            <tr>
+                <td onclick="c(7,this);"></td>
+                <td onclick="c(8,this);"></td>
+                <td onclick="c(9,this);"></td>
+            </tr>
+        </tbody>
+    </table>
 <script type="text/javascript">
+
+let current_player = !1;
+
+function c(i,e) {
+    if(e.className == "") {
+        e.className = current_player ? "o" : "x";
+        current_player = !current_player;
+    }
+}
+
+function getInput() {
+    throw "NINGUÉM";
+}
+
 function fim_de_jogo(n,p) {
     jogadas_vitoria = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]];
     for(let i = 0, l = jogadas_vitoria.length; i < l; i++) {
@@ -86,7 +163,7 @@ let desenha = [' ',' ',' ',' ',' ',' ',' ',' ',' ']
 while(fim==0) {
     console.log("1 -> jogador | 2 -> cpu\nQuem comeca?");
     while(nan==1) {
-        decisao_ant = ~~prompt();
+        decisao_ant = ~~getInput();
         if(decisao_ant < 10) {
             decisao = decisao_ant;
             nan = 0;
@@ -114,7 +191,7 @@ while(fim_de_jogo(jogadas_jogador, jogadas_cpu) == false) {
     if(fim_de_jogo(jogadas_jogador, jogadas_cpu) == false) {
         while(allowed == 0 && resolve == 1) {
             while(nan==1) {
-                temp_ant = ~~prompt("Jogador joga:\n");
+                temp_ant = ~~getInput("Jogador joga:\n");
                 if(temp_ant < 10) {
                     temp = temp_ant;
                     nan = 0;

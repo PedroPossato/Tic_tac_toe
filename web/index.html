@@ -3,6 +3,19 @@
 <head>
     <title> Tic Tac Toe </title>
     <style type="text/css">
+        html {
+            height: 100%;
+            min-height: 100%;
+        }
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            min-height: 100%;
+        }
         table {
             width: 40%;
             border-collapse: collapse;
@@ -34,279 +47,230 @@
             border-bottom-color: transparent;
         }
 
-        td.o, td.x {
+        .end td, td.o, td.x {
             cursor: default;
         }
 
         td.x {
             background-color: #cc3333;
         }
+        td.x::before {
+            content: "X";
+            position: absolute;
+            color: #ccc;
+        }
         td.o {
             background-color: #3333cc;
+        }
+        td.o::before {
+            content: "O";
+            position: absolute;
+            color: #ccc;
         }
 
     </style>
 </head>
-<body>
-    <table>
+<body onload="init();">
+    <table id="board">
         <tbody>
             <tr>
-                <td onclick="c(1,this);"></td>
-                <td onclick="c(2,this);"></td>
-                <td onclick="c(3,this);"></td>
+                <td data-index="1" onclick="c(this);"></td>
+                <td data-index="2" onclick="c(this);"></td>
+                <td data-index="3" onclick="c(this);"></td>
             </tr>
             <tr>
-                <td onclick="c(4,this);"></td>
-                <td onclick="c(5,this);"></td>
-                <td onclick="c(6,this);"></td>
+                <td data-index="4" onclick="c(this);"></td>
+                <td data-index="5" onclick="c(this);"></td>
+                <td data-index="6" onclick="c(this);"></td>
             </tr>
             <tr>
-                <td onclick="c(7,this);"></td>
-                <td onclick="c(8,this);"></td>
-                <td onclick="c(9,this);"></td>
+                <td data-index="7" onclick="c(this);"></td>
+                <td data-index="8" onclick="c(this);"></td>
+                <td data-index="9" onclick="c(this);"></td>
             </tr>
         </tbody>
     </table>
-<script type="text/javascript">
+    <script type="text/javascript">
 
-let current_player = !1;
-
-function c(i,e) {
-    if(e.className == "") {
-        e.className = current_player ? "o" : "x";
-        current_player = !current_player;
-    }
-}
-
-function getInput() {
-    throw "NINGUÉM";
-}
-
-function fim_de_jogo(n,p) {
-    jogadas_vitoria = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]];
-    for(let i = 0, l = jogadas_vitoria.length; i < l; i++) {
-        if((n.indexOf(jogadas_vitoria[i][0]) > -1
-        && n.indexOf(jogadas_vitoria[i][1]) > -1
-        && n.indexOf(jogadas_vitoria[i][2]) > -1)
-        ||(p.indexOf(jogadas_vitoria[i][0]) > -1
-        && p.indexOf(jogadas_vitoria[i][1]) > -1
-        && p.indexOf(jogadas_vitoria[i][2]) > -1)
-        ||(jogadas_jogador.length + jogadas_cpu.length >= 9))
-            return true;
-    }
-    return false;
-}
-
-function desenhaJogo(desenha) {
-    console.log("");
-    console.log("",desenha[0],"|",desenha[1],"|",desenha[2]);
-    console.log("-----------");
-    console.log("",desenha[3],"|",desenha[4],"|",desenha[5]);
-    console.log("-----------");
-    console.log("",desenha[6],"|",desenha[7],"|",desenha[8]);
-    console.log("");
-}
-
-function podevencer(n) {
-    for(let i = 0, l = jogadas_vitoria.length; i < l; i++) {
-        if(n.indexOf(jogadas_vitoria[i][0]) > -1
-        && n.indexOf(jogadas_vitoria[i][1]) > -1
-        && jogadas_jogador.indexOf(jogadas_vitoria[i][2]) == -1
-        && jogadas_cpu.indexOf(jogadas_vitoria[i][2]) == -1) {
-            return jogadas_vitoria[i][2];
-        } else if(n.indexOf(jogadas_vitoria[i][0]) > -1
-        && n.indexOf(jogadas_vitoria[i][2]) > -1
-        && jogadas_jogador.indexOf(jogadas_vitoria[i][1]) == -1
-        && jogadas_cpu.indexOf(jogadas_vitoria[i][1]) == -1) {
-            return jogadas_vitoria[i][1];
-        } else if(n.indexOf(jogadas_vitoria[i][1]) > -1
-        && n.indexOf(jogadas_vitoria[i][2]) > -1
-        && jogadas_jogador.indexOf(jogadas_vitoria[i][0]) == -1
-        && jogadas_cpu.indexOf(jogadas_vitoria[i][0]) == -1) {
-            return jogadas_vitoria[i][0];
+        let board = document.getElementById("board");
+        let current_player = false;
+        let player_start = true;
+        let win_conditions = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]];
+        let drawable = [];
+        let plays = {
+            player: [],
+            cpu: []
         }
-    }
-    return 10;
-}
 
-function naodeixevencer(n) {
-    for(let i = 0, l = jogadas_vitoria.length; i < l; i++) {
-        if (n.indexOf(jogadas_vitoria[i][0]) > -1
-        && n.indexOf(jogadas_vitoria[i][1]) > -1
-        && jogadas_jogador.indexOf(jogadas_vitoria[i][2]) == -1
-        && jogadas_cpu.indexOf(jogadas_vitoria[i][2]) == -1) {
-            return jogadas_vitoria[i][2];
-        } else if(n.indexOf(jogadas_vitoria[i][0]) > -1
-        && n.indexOf(jogadas_vitoria[i][2]) > -1
-        && jogadas_jogador.indexOf(jogadas_vitoria[i][1]) == -1
-        && jogadas_cpu.indexOf(jogadas_vitoria[i][1]) == -1) {
-            return jogadas_vitoria[i][1];
-        } else if(n.indexOf(jogadas_vitoria[i][1]) > -1
-        && n.indexOf(jogadas_vitoria[i][2]) > -1
-        && jogadas_jogador.indexOf(jogadas_vitoria[i][0]) == -1
-        && jogadas_cpu.indexOf(jogadas_vitoria[i][0]) == -1) {
-            return jogadas_vitoria[i][0];
-        }
-    }
-    return 10;
-}
+        function init() {
+            for(let i = 0; ++i < 10;)
+                drawable.push(" ");
 
-let jogadas_jogador = []
-let jogadas_cpu = []
-let fim = 0
-let jogadas_vitoria = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]]
-let no_draw = 0
-let allowed = 0
-let nan = 1
-let desenha = [' ',' ',' ',' ',' ',' ',' ',' ',' ']
-
-while(fim==0) {
-    console.log("1 -> jogador | 2 -> cpu\nQuem comeca?");
-    while(nan==1) {
-        decisao_ant = ~~getInput();
-        if(decisao_ant < 10) {
-            decisao = decisao_ant;
-            nan = 0;
-        } else {
-            console.log("Nao entendi, repita por favor!");
-        }
-    }
-    nan = 1;
-    if(decisao == 1) {
-        jogador_comeca = true;
-        fim = 1;
-    } else if(decisao == 2) {
-        jogador_comeca = false;
-        fim = 1;
-    } else {
-        console.log("Nao entendi, repita por favor!");
-    }
-}
-
-let resolve = 0
-while(fim_de_jogo(jogadas_jogador, jogadas_cpu) == false) {
-    if(jogador_comeca == true || jogadas_jogador.length + jogadas_cpu.length > 0) {
-        resolve = 1;
-    }
-    if(fim_de_jogo(jogadas_jogador, jogadas_cpu) == false) {
-        while(allowed == 0 && resolve == 1) {
-            while(nan==1) {
-                temp_ant = ~~getInput("Jogador joga:\n");
-                if(temp_ant < 10) {
-                    temp = temp_ant;
-                    nan = 0;
-                } else {
-                    console.log("Nao entendi, repita por favor!");
-                }
+            if(!player_start) {
+                play(plays, drawable, win_conditions);
             }
-            nan = 1;
-            if(jogadas_jogador.indexOf(temp) == -1
-            && jogadas_cpu.indexOf(temp) == -1
-            && temp > 0
-            && temp < 10) {
-                jogadas_jogador.push(temp);
-                desenha[temp-1] = 'x';
-                allowed = 1;
-                desenhaJogo(desenha);
+        }
+
+        function c(e) {
+            if(e.className == "" && board.className != "end") {
+                e.className = player_start ? "x" : "o";
+                drawable[e.dataset.index-1] = e.className;
+                plays.player.push(~~e.dataset.index);
+                play(plays, drawable, win_conditions);
+            }
+        }
+
+        function play(plays, drawable, win_conditions) {
+            let temp = podevencer(plays);
+            if(plays.player.indexOf(temp) == -1 && plays.cpu.indexOf(temp) == -1 && temp > 0 && temp < 10) {
+                plays.cpu.push(temp);
+                drawable[temp-1] = player_start ? "o" : "x";
+                updateBoard(drawable);
             } else {
-                console.log("Nao entendi, repita por favor!");
-            }
-        }
-        allowed = 0;
-        if(fim_de_jogo(jogadas_jogador,jogadas_cpu) == false) {
-            while(allowed == 0) {
-                temp = podevencer(jogadas_cpu);
-                if(jogadas_jogador.indexOf(temp) == -1
-                && jogadas_cpu.indexOf(temp) == -1
-                && temp > 0
-                && temp < 10) {
-                    jogadas_cpu.push(temp);
-                    desenha[temp-1] = 'o';
-                    allowed = 1;
-                    desenhaJogo(desenha);
+                temp = naodeixevencer(plays.player);
+                if(plays.player.indexOf(temp) == -1 && plays.cpu.indexOf(temp) == -1 && temp > 0 && temp < 10) {
+                    plays.cpu.push(temp);
+                    drawable[temp-1] = player_start ? "o" : "x";
+                    updateBoard(drawable);
+                } else if(
+                (plays.player[0] == 1 && plays.player[1] == 9)
+                ||
+                (plays.player[0] == 9 && plays.player[1] == 1)
+                ||
+                (plays.player[0] == 3 && plays.player[1] == 7)
+                ||
+                (plays.player[0] == 7 && plays.player[1] == 3)) {
+                    plays.cpu.push(4);
+                    drawable[3] = player_start ? "o" : "x";
+                    updateBoard(drawable);
                 } else {
-                    temp = naodeixevencer(jogadas_jogador);
-                    if(jogadas_jogador.indexOf(temp) == -1
-                    && jogadas_cpu.indexOf(temp) == -1
-                    && temp > 0
-                    && temp < 10) {
-                        jogadas_cpu.push(temp);
-                        desenha[temp-1] = 'o';
-                        allowed = 1;
-                        desenhaJogo(desenha);
-                    } else if((jogadas_jogador[0] == 1 && jogadas_jogador[1] == 9)
-                    || (jogadas_jogador[0] == 9 && jogadas_jogador[1] == 1)
-                    || (jogadas_jogador[0] == 3 && jogadas_jogador[1] == 7)
-                    || (jogadas_jogador[0] == 7 && jogadas_jogador[1] == 3)) {
-                        temp = 4;
-                        jogadas_cpu.push(temp);
-                        desenha[temp-1] = 'o';
-                        allowed = 1;
-                        desenhaJogo(desenha);
+                    if(plays.player.indexOf(5) == -1
+                    && plays.cpu.indexOf(5) == -1) {
+                        plays.cpu.push(5);
+                        drawable[4] = player_start ? "o" : "x";
+                        updateBoard(drawable);
                     } else {
-                        temp = 5;
-                        if(jogadas_jogador.indexOf(temp) == -1
-                        && jogadas_cpu.indexOf(temp) == -1
-                        && temp > 0
-                        && temp < 10) {
-                            jogadas_cpu.push(temp);
-                            desenha[temp-1] = 'o';
-                            allowed = 1;
-                            desenhaJogo(desenha);
-                        } else {
-                            ponta = [1,3,7,9];
-                            repete = 0;
-                            for(let i = 0, l = ponta.length; i < l; i++) {
-                                if(jogadas_jogador.indexOf(ponta[i]) == -1
-                                && jogadas_cpu.indexOf(ponta[i]) == -1
-                                && repete == 0) {
-                                    temp = ponta[i];
-                                    repete = 1;
-                                    jogadas_cpu.push(temp);
-                                    desenha[temp-1] = 'o';
-                                    allowed = 1;
-                                    desenhaJogo(desenha);
-                                }
+                        let ponta = [1,3,7,9];
+                        let repete = false;
+                        for(let i = 0, l = ponta.length; i < l; i++) {
+                            if(plays.player.indexOf(ponta[i]) == -1
+                            && plays.cpu.indexOf(ponta[i]) == -1
+                            && !repete) {
+                                repete = true;
+                                plays.cpu.push(ponta[i]);
+                                drawable[ponta[i]-1] = player_start ? "o" : "x";
+                                updateBoard(drawable);
+                                break;
                             }
-                            if(repete==0) {
-                                meio = [2,4,6,8];
-                                for(let i = 0, l = meio.length; i < l; i++) {
-                                    if(jogadas_jogador.indexOf(meio[i])== -1
-                                    && jogadas_cpu.indexOf(meio[i]) == -1
-                                    && repete == 0) {
-                                        temp = meio[i];
-                                        repete = 1;
-                                        jogadas_cpu.push(temp);
-                                        desenha[temp-1] = 'o';
-                                        allowed = 1;
-                                        desenhaJogo(desenha);
-                                    }
+                        }
+                        if(!repete) {
+                            let meio = [2,4,6,8];
+                            for(let i = 0, l = meio.length; i < l; i++) {
+                                if(plays.player.indexOf(meio[i])== -1
+                                && plays.cpu.indexOf(meio[i]) == -1) {
+                                    plays.cpu.push(meio[i]);
+                                    drawable[meio[i]-1] = player_start ? "o" : "x";
+                                    updateBoard(drawable);
+                                    break;
                                 }
                             }
                         }
                     }
                 }
             }
-            allowed = 0;
+            if(isGameOver(plays)) {
+                let is_draw = true;
+                for(let i = 0, l = win_conditions.length; i < l; i++) {
+                    if(plays.cpu.indexOf(win_conditions[i][0])>-1
+                    && plays.cpu.indexOf(win_conditions[i][1])>-1
+                    && plays.cpu.indexOf(win_conditions[i][2])>-1) {
+                        console.log("CPU venceu");
+                        is_draw = false;
+                        break;
+                    } else if(plays.cpu.indexOf(win_conditions[i][0])>-1
+                        && plays.cpu.indexOf(win_conditions[i][1]>-1)
+                        && plays.cpu.indexOf(win_conditions[i][2])>-1) {
+                        console.log("Jogador venceu");
+                        is_draw = false;
+                        break;
+                    }
+                }
+                if(is_draw) console.log("Deu velha.");
+            }
         }
-    }
-}
 
+        function isGameOver(plays) {
+            if(!plays.player.length || !plays.cpu.length) return false;
+            for(let i = 0, l = win_conditions.length; i < l; i++) {
+                if((plays.player.indexOf(win_conditions[i][0]) > -1
+                && plays.player.indexOf(win_conditions[i][1]) > -1
+                && plays.player.indexOf(win_conditions[i][2]) > -1)
+                ||(plays.cpu.indexOf(win_conditions[i][0]) > -1
+                && plays.cpu.indexOf(win_conditions[i][1]) > -1
+                && plays.cpu.indexOf(win_conditions[i][2]) > -1)
+                ||(plays.player.length + plays.cpu.length >= 9)) {
+                    board.className = "end";
+                    return (game_over = true);
+                }
+            }
+            return false;
+        }
 
-for(let i = 0, l = jogadas_vitoria.length; i < l; i++) {
-    if(jogadas_cpu.indexOf(jogadas_vitoria[i][0])>-1
-    && jogadas_cpu.indexOf(jogadas_vitoria[i][1])>-1
-    && jogadas_cpu.indexOf(jogadas_vitoria[i][2])>-1) {
-        console.log("Jogador venceu");
-        no_draw = 1;
-    } else if(jogadas_vitoria[i][0] in jogadas_cpu
-    && jogadas_cpu.indexOf(jogadas_vitoria[i][1]>-1)
-    && jogadas_cpu.indexOf(jogadas_vitoria[i][2])>-1) {
-        console.log("CPU venceu");
-        no_draw = 1;
-    }
-}
-if(no_draw == 0) console.log("Deu velha");
-</script>
+        function updateBoard(desenha) {
+            for(let i = 0; i < 9; i++) {
+                if(desenha[i] != " ") {
+                    let e = document.querySelector("[data-index='" + (i+1) + "']");
+                    if(e.className != desenha[i])
+                        e.className = desenha[i];
+                }
+            }
+        }
+
+        function podevencer(plays) {
+            if(!plays.player.length || !plays.cpu.length) return 10;
+            for(let i = 0, l = win_conditions.length; i < l; i++) {
+                if(plays.player.indexOf(win_conditions[i][0]) > -1
+                && plays.player.indexOf(win_conditions[i][1]) > -1
+                && plays.player.indexOf(win_conditions[i][2]) == -1
+                && plays.cpu.indexOf(win_conditions[i][2]) == -1) {
+                    return win_conditions[i][2];
+                } else if(plays.player.indexOf(win_conditions[i][0]) > -1
+                && plays.player.indexOf(win_conditions[i][2]) > -1
+                && plays.player.indexOf(win_conditions[i][1]) == -1
+                && plays.cpu.indexOf(win_conditions[i][1]) == -1) {
+                    return win_conditions[i][1];
+                } else if(plays.player.indexOf(win_conditions[i][1]) > -1
+                && plays.player.indexOf(win_conditions[i][2]) > -1
+                && plays.player.indexOf(win_conditions[i][0]) == -1
+                && plays.cpu.indexOf(win_conditions[i][0]) == -1) {
+                    return win_conditions[i][0];
+                }
+            }
+            return 10;
+        }
+
+        function naodeixevencer(n) {
+            if(!n.length || !plays.player.length || !plays.cpu.length) return 10;
+            for(let i = 0, l = win_conditions.length; i < l; i++) {
+                if (n.indexOf(win_conditions[i][0]) > -1
+                && n.indexOf(win_conditions[i][1]) > -1
+                && plays.player.indexOf(win_conditions[i][2]) == -1
+                && plays.cpu.indexOf(win_conditions[i][2]) == -1) {
+                    return win_conditions[i][2];
+                } else if(n.indexOf(win_conditions[i][0]) > -1
+                && n.indexOf(win_conditions[i][2]) > -1
+                && plays.player.indexOf(win_conditions[i][1]) == -1
+                && plays.cpu.indexOf(win_conditions[i][1]) == -1) {
+                    return win_conditions[i][1];
+                } else if(n.indexOf(win_conditions[i][1]) > -1
+                && n.indexOf(win_conditions[i][2]) > -1
+                && plays.player.indexOf(win_conditions[i][0]) == -1
+                && plays.cpu.indexOf(win_conditions[i][0]) == -1) {
+                    return win_conditions[i][0];
+                }
+            }
+            return 10;
+        }
+    </script>
 </body>
 </html>

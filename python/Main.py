@@ -90,124 +90,135 @@ while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False):# and espacos>0):
         #espacos-=1
         if fim_de_jogo(jogadas_jogador,jogadas_cpu) == False:#espacos>0:     # if das jogadas da cpu
             while allowed == 0:
-                temp = podevencer(jogadas_cpu)
-                if temp not in jogadas_jogador and temp not in jogadas_cpu and temp>0 and temp<10:
-                    jogadas_cpu.append(temp)
-                    desenha[temp-1] = 'o'
+                if jogadas_jogador==[2,8] or jogadas_jogador==[8,2] or jogadas_jogador==[4,6] or jogadas_jogador==[6,4]:
+                    jogadas_cpu.append(1)
+                    desenha[0] = 'o'
                     allowed = 1
                     desenhaJogo(desenha)
-                    #print "pode vencer!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
                 else:
-                    temp = naodeixevencer(jogadas_jogador)
-                    #print temp,'AAA'
+                    temp = podevencer(jogadas_cpu)
                     if temp not in jogadas_jogador and temp not in jogadas_cpu and temp>0 and temp<10:
                         jogadas_cpu.append(temp)
                         desenha[temp-1] = 'o'
                         allowed = 1
                         desenhaJogo(desenha)
-                        #print "naodeixevencer!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-                    elif jogadas_jogador == [1,9] or jogadas_jogador == [9,1] or jogadas_jogador == [3,7] or jogadas_jogador == [7,3]:
-                        temp = 4
-                        jogadas_cpu.append(temp)
-                        desenha[temp-1] = 'o'
-                        allowed = 1
-                        desenhaJogo(desenha)
-                        #print "caso especial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+                        #print "pode vencer!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
                     else:
-                        temp = 5
+                        temp = naodeixevencer(jogadas_jogador)
+                        #print temp,'AAA'
                         if temp not in jogadas_jogador and temp not in jogadas_cpu and temp>0 and temp<10:
                             jogadas_cpu.append(temp)
                             desenha[temp-1] = 'o'
                             allowed = 1
                             desenhaJogo(desenha)
-                            #print "centro!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+                            #print "naodeixevencer!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+                        elif jogadas_jogador == [1,9] or jogadas_jogador == [9,1] or jogadas_jogador == [3,7] or jogadas_jogador == [7,3]:
+                            temp = 4
+                            jogadas_cpu.append(temp)
+                            desenha[temp-1] = 'o'
+                            allowed = 1
+                            desenhaJogo(desenha)
+                            #print "caso especial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
                         else:
-                            ponta = [1,3,7,9]
-                            meio = [2,4,6,8]
-                            if ((jogadas_jogador[0] in ponta and jogadas_jogador[1] in meio) or (jogadas_jogador[1] in ponta and jogadas_jogador[0] in meio)) and (len(jogadas_jogador) == 2):
-                                aux = jogadas_jogador
-                                list.sort(aux)
-                                if aux == [2,7] or aux == [3,4]:
-                                    temp = 1
-                                    jogadas_cpu.append(temp)
-                                    desenha[temp-1] = 'o'
-                                    allowed = 1
-                                    desenhaJogo(desenha)
-                                    #print "caso 1!!!!!!!!!!!!!!!!!!"
-                                if aux == [2,9] or aux == [1,6]:
-                                    temp = 3
-                                    jogadas_cpu.append(temp)
-                                    desenha[temp-1] = 'o'
-                                    allowed = 1
-                                    desenhaJogo(desenha)
-                                    #print "caso 2!!!!!!!!!!!!!!!!!!"
-                                if aux == [4,9] or aux == [1,8]:
-                                    temp = 7
-                                    jogadas_cpu.append(temp)
-                                    desenha[temp-1] = 'o'
-                                    allowed = 1
-                                    desenhaJogo(desenha)
-                                    #print "caso 3!!!!!!!!!!!!!!!!!!"
-                                if aux == [3,8] or aux == [6,7]:
-                                    temp = 9
-                                    jogadas_cpu.append(temp)
-                                    desenha[temp-1] = 'o'
-                                    allowed = 1
-                                    desenhaJogo(desenha)
-                                    #print "caso 4!!!!!!!!!!!!!!!!!!"
+                            temp = 5
+                            if temp not in jogadas_jogador and temp not in jogadas_cpu and temp>0 and temp<10:
+                                jogadas_cpu.append(temp)
+                                desenha[temp-1] = 'o'
+                                allowed = 1
+                                desenhaJogo(desenha)
+                                #print "centro!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
                             else:
-                                aux = jogadas_jogador
-                                list.sort(aux)
-                                if aux[0] in meio and aux[1] in meio and len(aux) == 2:
-                                    if aux == [2,4]:
+                                ponta = [1,3,7,9]
+                                meio = [2,4,6,8]
+                                original = jogadas_jogador
+                                while len(jogadas_jogador)<2:
+                                    jogadas_jogador.append(30)
+                                if ((jogadas_jogador[0] in ponta and jogadas_jogador[1] in meio) or (jogadas_jogador[1] in ponta and jogadas_jogador[0] in meio)) and (len(jogadas_jogador) == 2):
+                                    jogadas_jogador = original
+                                    aux = jogadas_jogador
+                                    list.sort(aux)
+                                    if aux == [2,7] or aux == [3,4]:
                                         temp = 1
                                         jogadas_cpu.append(temp)
                                         desenha[temp-1] = 'o'
                                         allowed = 1
                                         desenhaJogo(desenha)
-                                        #print "caso 2.1!!!!!!!!!!!!!!!!!!"
-                                    if aux == [2,6]:
+                                        #print "caso 1!!!!!!!!!!!!!!!!!!"
+                                    if aux == [2,9] or aux == [1,6]:
                                         temp = 3
                                         jogadas_cpu.append(temp)
                                         desenha[temp-1] = 'o'
                                         allowed = 1
                                         desenhaJogo(desenha)
-                                        #print "caso 2.2!!!!!!!!!!!!!!!!!!"
-                                    if aux == [4,8]:
+                                        #print "caso 2!!!!!!!!!!!!!!!!!!"
+                                    if aux == [4,9] or aux == [1,8]:
                                         temp = 7
                                         jogadas_cpu.append(temp)
                                         desenha[temp-1] = 'o'
                                         allowed = 1
                                         desenhaJogo(desenha)
-                                        #print "caso 2.3!!!!!!!!!!!!!!!!!!"
-                                    if aux == [6,8]:
+                                        #print "caso 3!!!!!!!!!!!!!!!!!!"
+                                    if aux == [3,8] or aux == [6,7]:
                                         temp = 9
                                         jogadas_cpu.append(temp)
                                         desenha[temp-1] = 'o'
                                         allowed = 1
                                         desenhaJogo(desenha)
-                                        #print "caso 2.4!!!!!!!!!!!!!!!!!!"
+                                        #print "caso 4!!!!!!!!!!!!!!!!!!"
                                 else:
-                                    repete = 0
-                                    for i in range(len(ponta)):
-                                        if ponta[i] not in jogadas_jogador and ponta[i] not in jogadas_cpu and repete == 0:
-                                            temp = ponta[i]
-                                            repete = 1
+                                    jogadas_jogador = original
+                                    aux = jogadas_jogador
+                                    list.sort(aux)
+                                    if aux[0] in meio and aux[1] in meio and len(aux) == 2:
+                                        if aux == [2,4]:
+                                            temp = 1
                                             jogadas_cpu.append(temp)
                                             desenha[temp-1] = 'o'
                                             allowed = 1
                                             desenhaJogo(desenha)
-                                            #print "corners!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-                                    if repete==0:
-                                        for i in range(len(meio)):
-                                            if meio[i] not in jogadas_jogador and meio[i] not in jogadas_cpu and repete == 0:
-                                                temp = meio[i]
+                                            #print "caso 2.1!!!!!!!!!!!!!!!!!!"
+                                        if aux == [2,6]:
+                                            temp = 3
+                                            jogadas_cpu.append(temp)
+                                            desenha[temp-1] = 'o'
+                                            allowed = 1
+                                            desenhaJogo(desenha)
+                                            #print "caso 2.2!!!!!!!!!!!!!!!!!!"
+                                        if aux == [4,8]:
+                                            temp = 7
+                                            jogadas_cpu.append(temp)
+                                            desenha[temp-1] = 'o'
+                                            allowed = 1
+                                            desenhaJogo(desenha)
+                                            #print "caso 2.3!!!!!!!!!!!!!!!!!!"
+                                        if aux == [6,8]:
+                                            temp = 9
+                                            jogadas_cpu.append(temp)
+                                            desenha[temp-1] = 'o'
+                                            allowed = 1
+                                            desenhaJogo(desenha)
+                                            #print "caso 2.4!!!!!!!!!!!!!!!!!!"
+                                    else:
+                                        repete = 0
+                                        for i in range(len(ponta)):
+                                            if ponta[i] not in jogadas_jogador and ponta[i] not in jogadas_cpu and repete == 0:
+                                                temp = ponta[i]
                                                 repete = 1
                                                 jogadas_cpu.append(temp)
                                                 desenha[temp-1] = 'o'
                                                 allowed = 1
                                                 desenhaJogo(desenha)
-                                                #print "middles!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+                                                #print "corners!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+                                        if repete==0:
+                                            for i in range(len(meio)):
+                                                if meio[i] not in jogadas_jogador and meio[i] not in jogadas_cpu and repete == 0:
+                                                    temp = meio[i]
+                                                    repete = 1
+                                                    jogadas_cpu.append(temp)
+                                                    desenha[temp-1] = 'o'
+                                                    allowed = 1
+                                                    desenhaJogo(desenha)
+                                                    #print "middles!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 
 
             allowed = 0

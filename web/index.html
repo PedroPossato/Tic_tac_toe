@@ -128,16 +128,16 @@
         }
 
         function play(plays, drawable, win_conditions) {
-            let temp = podevencer(plays);
-            if(plays.player.indexOf(temp) == -1 && plays.cpu.indexOf(temp) == -1 && temp > 0 && temp < 10) {
-                plays.cpu.push(temp);
-                drawable[temp-1] = player_start ? "o" : "x";
+            let move = podevencer();
+            if(plays.player.indexOf(move) == -1 && plays.cpu.indexOf(move) == -1 && move > 0 && move < 10) {
+                plays.cpu.push(move);
+                drawable[move-1] = player_start ? "o" : "x";
                 updateBoard(drawable);
             } else {
-                temp = naodeixevencer(plays.player);
-                if(plays.player.indexOf(temp) == -1 && plays.cpu.indexOf(temp) == -1 && temp > 0 && temp < 10) {
-                    plays.cpu.push(temp);
-                    drawable[temp-1] = player_start ? "o" : "x";
+                move = naodeixevencer();
+                if(plays.player.indexOf(move) == -1 && plays.cpu.indexOf(move) == -1 && move > 0 && move < 10) {
+                    plays.cpu.push(move);
+                    drawable[move-1] = player_start ? "o" : "x";
                     updateBoard(drawable);
                 } else if(
                 (plays.player[0] == 1 && plays.player[1] == 9)
@@ -233,8 +233,7 @@
             }
         }
 
-        function podevencer(n) {
-            if(!plays.player.length || !plays.cpu.length) return 10;
+        function podevencer() {
             for(let i = 0, l = win_conditions.length; i < l; i++) {
                 if(plays.cpu.indexOf(win_conditions[i][0]) > -1
                 && plays.cpu.indexOf(win_conditions[i][1]) > -1
@@ -256,8 +255,7 @@
             return 10;
         }
 
-        function naodeixevencer(n) { // n => plays.player
-            if(/*!n.length || */!plays.player.length || !plays.cpu.length) return 10;
+        function naodeixevencer() { // n => plays.player
             for(let i = 0, l = win_conditions.length; i < l; i++) {
                 if (plays.player.indexOf(win_conditions[i][0]) > -1
                 && plays.player.indexOf(win_conditions[i][1]) > -1

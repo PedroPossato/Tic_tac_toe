@@ -138,16 +138,16 @@
         }
 
         function play(plays, drawable, win_conditions) {
-            let temp = podevencer();
-            if(plays.player.indexOf(temp) == -1 && plays.cpu.indexOf(temp) == -1 && temp > 0 && temp < 10) {
-                plays.cpu.push(temp);
-                drawable[temp-1] = player_start ? "o" : "x";
+            let move = podevencer();
+            if(plays.player.indexOf(move) == -1 && plays.cpu.indexOf(move) == -1 && move > 0 && move < 10) {
+                plays.cpu.push(move);
+                drawable[move-1] = player_start ? "o" : "x";
                 updateBoard(drawable);
             } else {
-                temp = naodeixevencer();
-                if(plays.player.indexOf(temp) == -1 && plays.cpu.indexOf(temp) == -1 && temp > 0 && temp < 10) {
-                    plays.cpu.push(temp);
-                    drawable[temp-1] = player_start ? "o" : "x";
+                move = naodeixevencer();
+                if(plays.player.indexOf(move) == -1 && plays.cpu.indexOf(move) == -1 && move > 0 && move < 10) {
+                    plays.cpu.push(move);
+                    drawable[move-1] = player_start ? "o" : "x";
                     updateBoard(drawable);
                 } else if(
                 (plays.player[0] == 1 && plays.player[1] == 9)

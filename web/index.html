@@ -95,7 +95,14 @@
         let board = document.getElementById("board");
         let current_player = false;
         let player_start = true;
-        let win_conditions = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]];
+        let win_conditions = [[1,2,3],
+                              [4,5,6],
+                              [7,8,9],
+                              [1,4,7],
+                              [2,5,8],
+                              [3,6,9],
+                              [1,5,9],
+                              [3,5,7]];
         let drawable = [];
         let plays = {
             player: [],
@@ -226,32 +233,23 @@
             }
         }
 
-        function podevencer(plays) {
-            console.log('entrei em pode vencer');
-            //if(!plays.player.length || !plays.cpu.length) return 10;
+        function podevencer(n) {
+            if(!plays.player.length || !plays.cpu.length) return 10;
             for(let i = 0, l = win_conditions.length; i < l; i++) {
-                /*if(plays.player.indexOf(win_conditions[i][0]) > -1
-                && plays.player.indexOf(win_conditions[i][1]) > -1
-                && plays.player.indexOf(win_conditions[i][2]) == -1
-                && plays.cpu.indexOf(win_conditions[i][2]) == -1) {
-                    return win_conditions[i][2];*/
                 if(plays.cpu.indexOf(win_conditions[i][0]) > -1
                 && plays.cpu.indexOf(win_conditions[i][1]) > -1
-                && plays.cpu.indexOf(win_conditions[i][0]) == -1
+                && plays.cpu.indexOf(win_conditions[i][2]) == -1
                 && plays.player.indexOf(win_conditions[i][2]) == -1) {
-                    console.log('pode vencer em: ' + win_conditions[i][2]);
                     return win_conditions[i][2];
                 } else if(plays.cpu.indexOf(win_conditions[i][0]) > -1
                 && plays.cpu.indexOf(win_conditions[i][2]) > -1
                 && plays.cpu.indexOf(win_conditions[i][1]) == -1
                 && plays.player.indexOf(win_conditions[i][1]) == -1) {
-                    console.log('pode vencer em: ' + win_conditions[i][1]);
                     return win_conditions[i][1];
                 } else if(plays.cpu.indexOf(win_conditions[i][1]) > -1
                 && plays.cpu.indexOf(win_conditions[i][2]) > -1
                 && plays.cpu.indexOf(win_conditions[i][0]) == -1
                 && plays.player.indexOf(win_conditions[i][0]) == -1) {
-                    console.log('pode vencer em: ' + win_conditions[i][0]);
                     return win_conditions[i][0];
                 }
             }
@@ -259,7 +257,7 @@
         }
 
         function naodeixevencer(n) { // n => plays.player
-            //if(/*!n.length || */!plays.player.length || !plays.cpu.length) return 10;
+            if(/*!n.length || */!plays.player.length || !plays.cpu.length) return 10;
             for(let i = 0, l = win_conditions.length; i < l; i++) {
                 if (plays.player.indexOf(win_conditions[i][0]) > -1
                 && plays.player.indexOf(win_conditions[i][1]) > -1

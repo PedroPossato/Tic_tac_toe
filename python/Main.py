@@ -15,7 +15,7 @@ def desenhaJogo(desenha):
     print ""
     #print jogadas_jogador,jogadas_cpu
 
-def podevencer(n):
+def podevencer(n): #n => jogadas_cpu
     for i in range(len(jogadas_vitoria)):
         if (jogadas_vitoria[i][0] in n and jogadas_vitoria[i][1] in n and jogadas_vitoria[i][2] not in jogadas_jogador and jogadas_vitoria[i][2] not in jogadas_cpu):
             return jogadas_vitoria[i][2]
@@ -26,7 +26,7 @@ def podevencer(n):
     return 10
 
 
-def naodeixevencer(n):
+def naodeixevencer(n): # n => jogadas_jogador
     for i in range(len(jogadas_vitoria)):
         if (jogadas_vitoria[i][0] in n and jogadas_vitoria[i][1] in n and jogadas_vitoria[i][2] not in jogadas_jogador and jogadas_vitoria[i][2] not in jogadas_cpu):
             return jogadas_vitoria[i][2]
@@ -69,7 +69,7 @@ resolve = 0
 while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False):# and espacos>0):
     if jogador_comeca == True or len(jogadas_jogador)+len(jogadas_cpu)>0:
         resolve = 1
-    if (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False):
+    if (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False): #if das jogadas do jogador
         while allowed == 0 and resolve == 1:
             while nan==1:
                 temp_ant = raw_input("Jogador joga:\n")
@@ -88,7 +88,7 @@ while (fim_de_jogo(jogadas_jogador,jogadas_cpu) == False):# and espacos>0):
                 print "Nao entendi, repita por favor!"
         allowed = 0
         #espacos-=1
-        if fim_de_jogo(jogadas_jogador,jogadas_cpu) == False:#espacos>0:
+        if fim_de_jogo(jogadas_jogador,jogadas_cpu) == False:#espacos>0:     # if das jogadas da cpu
             while allowed == 0:
                 temp = podevencer(jogadas_cpu)
                 if temp not in jogadas_jogador and temp not in jogadas_cpu and temp>0 and temp<10:

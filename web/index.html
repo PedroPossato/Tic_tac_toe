@@ -169,22 +169,55 @@
                         drawable[4] = player_start ? "o" : "x";
                         updateBoard(drawable);
                     } else {
-                        if(
-                        (plays.player[0] == 1 && plays.player[1] == 8)
-                        ||
-                        (plays.player[0] == 8 && plays.player[1] == 1)) {
-                            plays.cpu.push(7);
-                            drawable[6] = player_start ? "o" : "x";
-                            updateBoard(drawable);
-                        } else if(
-                        (plays.player[0] == 3 && plays.player[1] == 8)
-                        ||
-                        (plays.player[0] == 8 && plays.player[1] == 3)) {
-                            plays.cpu.push(9);
-                            drawable[8] = player_start ? "o" : "x";
-                            updateBoard(drawable);
+                        let ponta = [1,3,7,9];
+                        let meio = [2,4,6,8];
+                        let sortedpp = plays.player.sort();
+                        
+                        if((ponta.indexOf(plays.player[0]) > -1 && meio.indexOf(plays.player[1]) > -1)
+                         ||(ponta.indexOf(plays.player[1]) > -1 && meio.indexOf(plays.player[0]) > -1)
+                         && plays.player.length == 2) {
+                            if((sortedpp[0] == 2 && sortedpp[1] == 7)
+                              ||(sortedpp[0] == 3 && sortedpp[1] == 4)) {
+                                plays.cpu.push(1);
+                                drawable[0] =  player_start ? "o" : "x";
+                                updateBoard(drawable);
+                            } else if((sortedpp[0] == 2 && sortedpp[1] == 9)
+                                    ||(sortedpp[0] == 1 && sortedpp[1] == 6)) {
+                                plays.cpu.push(3);
+                                drawable[2] = player_start ? "o" : "x";
+                                updateBoard(drawable);
+                            } else if((sortedpp[0] == 4 && sortedpp[1] == 9)
+                                   || (sortedpp[0] == 1 && sortedpp[1] == 8)) {
+                                plays.cpu.push(7);
+                                drawable[6] = player_start ? "o" : "x";
+                                updateBoard(drawable);
+                            } else if((sortedpp[0] == 3 && sortedpp[1] == 8)
+                                    ||(sortedpp[0] == 6 && sortedpp[1] == 7)) {
+                                plays.cpu.push(9);
+                                drawable[8] = player_start ? "o" : "x";
+                                updateBoard(drawable);
+                            }
                         } else {
-                            let ponta = [1,3,7,9];
+                            if(meio.indexOf(sortedpp[0]) > -1
+                            && meio.indexOf(sortedpp[1])) {
+                                if(sortedpp[0] == 2 && sortedpp[1] == 4) {
+                                    plays.cpu.push(1);
+                                    drawable[0] = player_start ? "o" : "x";
+                                    updateBoard(drawable);
+                                } else if(sortedpp[0] == 2 && sortedpp[1] == 6) {
+                                    plays.cpu.push(3);
+                                    drawable[2] = player_start ? "o" : "x";
+                                    updateBoard(drawable);
+                                } else if (sortedpp[0] == 4 && sortedpp[1] == 8) {
+                                    plays.cpu.push(7);
+                                    drawable[6] = player_start ? "o" : "x";
+                                    updateBoard(drawable);
+                                } else if (sortedpp[0] == 6 && sortedpp[1] == 8) {
+                                    plays.cpu.push(9);
+                                    drawable[8] = player_start ? "o" : "x";
+                                    updateBoard(drawable);
+                            }
+                        } else {
                             let repete = false;
                             for(let i = 0, l = ponta.length; i < l; i++) {
                                 if(plays.player.indexOf(ponta[i]) == -1
@@ -198,7 +231,6 @@
                                 }
                             }
                             if(!repete) {
-                                let meio = [2,4,6,8];
                                 for(let i = 0, l = meio.length; i < l; i++) {
                                     if(plays.player.indexOf(meio[i])== -1
                                     && plays.cpu.indexOf(meio[i]) == -1) {

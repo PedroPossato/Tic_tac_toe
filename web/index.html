@@ -6,6 +6,7 @@
         html {
             height: 100%;
             min-height: 100%;
+            font-family: "Indie Flower", "Raleway", "Open Sans", "Arial", sans-serif;
         }
         body {
             margin: 0;
@@ -17,13 +18,13 @@
             min-height: 100%;
         }
         table {
-            width: 40%;
+            width: 50%;
+            width: 50vmin;
             border-collapse: collapse;
         }
         td {
             width: 33%;
             height: 33%;
-            background-color: #f0f0f0;
             border: 6px solid #222;
             cursor: pointer;
         }
@@ -49,26 +50,33 @@
 
         .end td, td.o, td.x {
             cursor: default;
+            position: relative;
         }
 
-        td.x {
-            background-color: #cc3333;
+        td.x::before,
+        td.o::before {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            font-size: 70px;
+            font-size: 10vmin;
         }
         td.x::before {
             content: "X";
-            position: absolute;
-            color: #ccc;
-        }
-        td.o {
-            background-color: #3333cc;
+            color: #cc3333;
         }
         td.o::before {
             content: "O";
-            position: absolute;
-            color: #ccc;
+            color: #3333cc;
         }
 
+        #status {
+            font-size: 70px;
+            font-size: 10vmin;
+        }
     </style>
+    <link href="https://fonts.googleapis.com/css?family=Raleway|Indie+Flower" rel="stylesheet"/>
 </head>
 <body onload="init();">
     <table id="board">
@@ -90,8 +98,10 @@
             </tr>
         </tbody>
     </table>
+    <div id="status">&nbsp;</div>
     <script type="text/javascript">
 
+        let status = document.getElementById("status");
         let board = document.getElementById("board");
         let current_player = false;
         let player_start = true;
@@ -202,23 +212,26 @@
                 }
             }
             if(isGameOver(plays)) {
+                let outcome = "";
                 let is_draw = true;
                 for(let i = 0, l = win_conditions.length; i < l; i++) {
                     if(plays.cpu.indexOf(win_conditions[i][0])>-1
                     && plays.cpu.indexOf(win_conditions[i][1])>-1
                     && plays.cpu.indexOf(win_conditions[i][2])>-1) {
-                        console.log("CPU venceu");
+                        outcome = "CPU venceu :c";
                         is_draw = false;
                         break;
-                    } else if(plays.cpu.indexOf(win_conditions[i][0])>-1
-                        && plays.cpu.indexOf(win_conditions[i][1]>-1)
-                        && plays.cpu.indexOf(win_conditions[i][2])>-1) {
-                        console.log("Jogador venceu");
+                    } else if(plays.player.indexOf(win_conditions[i][0]) > -1
+                        && plays.player.indexOf(win_conditions[i][1]) > -1
+                        && plays.player.indexOf(win_conditions[i][2]) > -1) {
+                        debugger;
+                        outcome = "Você ganhou um Xbox!";
                         is_draw = false;
                         break;
                     }
                 }
-                if(is_draw) console.log("Deu velha.");
+                if(is_draw) outcome = "Deu velha :c";
+                status.innerText = outcome;
             }
         }
 
@@ -250,6 +263,7 @@
         }
 
         function podevencer() {
+            if(!plays.player.length || !plays.cpu.length) return 10;
             for(let i = 0, l = win_conditions.length; i < l; i++) {
                 if(plays.cpu.indexOf(win_conditions[i][0]) > -1
                 && plays.cpu.indexOf(win_conditions[i][1]) > -1
@@ -271,7 +285,8 @@
             return 10;
         }
 
-        function naodeixevencer() { // n => plays.player
+        function naodeixevencer() {
+            if(!plays.player.length || !plays.cpu.length) return 10;
             for(let i = 0, l = win_conditions.length; i < l; i++) {
                 if (plays.player.indexOf(win_conditions[i][0]) > -1
                 && plays.player.indexOf(win_conditions[i][1]) > -1

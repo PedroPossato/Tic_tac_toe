@@ -138,6 +138,8 @@
         }
 
         function play(plays, drawable, win_conditions) {
+            if(isGameOver(plays)) return endGame();
+
             let move = podevencer();
             if(plays.player.indexOf(move) == -1 && plays.cpu.indexOf(move) == -1 && move > 0 && move < 10) {
                 plays.cpu.push(move);
@@ -211,28 +213,30 @@
                     }
                 }
             }
-            if(isGameOver(plays)) {
-                let outcome = "";
-                let is_draw = true;
-                for(let i = 0, l = win_conditions.length; i < l; i++) {
-                    if(plays.cpu.indexOf(win_conditions[i][0])>-1
-                    && plays.cpu.indexOf(win_conditions[i][1])>-1
-                    && plays.cpu.indexOf(win_conditions[i][2])>-1) {
-                        outcome = "CPU venceu :c";
-                        is_draw = false;
-                        break;
-                    } else if(plays.player.indexOf(win_conditions[i][0]) > -1
-                        && plays.player.indexOf(win_conditions[i][1]) > -1
-                        && plays.player.indexOf(win_conditions[i][2]) > -1) {
-                        debugger;
-                        outcome = "Você ganhou um Xbox!";
-                        is_draw = false;
-                        break;
-                    }
+            if(isGameOver(plays)) return endGame();
+        }
+
+        function endGame() {
+            let outcome = "";
+            let is_draw = true;
+            for(let i = 0, l = win_conditions.length; i < l; i++) {
+                if(plays.cpu.indexOf(win_conditions[i][0])>-1
+                && plays.cpu.indexOf(win_conditions[i][1])>-1
+                && plays.cpu.indexOf(win_conditions[i][2])>-1) {
+                    outcome = "CPU venceu :c";
+                    is_draw = false;
+                    break;
+                } else if(plays.player.indexOf(win_conditions[i][0]) > -1
+                    && plays.player.indexOf(win_conditions[i][1]) > -1
+                    && plays.player.indexOf(win_conditions[i][2]) > -1) {
+                    debugger;
+                    outcome = "Você ganhou um Xbox!";
+                    is_draw = false;
+                    break;
                 }
-                if(is_draw) outcome = "Deu velha :c";
-                status.innerText = outcome;
             }
+            if(is_draw) outcome = "Deu velha :c";
+            status.innerText = outcome;
         }
 
         function isGameOver(plays) {

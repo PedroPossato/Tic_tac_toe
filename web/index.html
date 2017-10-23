@@ -157,28 +157,44 @@
                         drawable[4] = player_start ? "o" : "x";
                         updateBoard(drawable);
                     } else {
-                        let ponta = [1,3,7,9];
-                        let repete = false;
-                        for(let i = 0, l = ponta.length; i < l; i++) {
-                            if(plays.player.indexOf(ponta[i]) == -1
-                            && plays.cpu.indexOf(ponta[i]) == -1
-                            && !repete) {
-                                repete = true;
-                                plays.cpu.push(ponta[i]);
-                                drawable[ponta[i]-1] = player_start ? "o" : "x";
-                                updateBoard(drawable);
-                                break;
-                            }
-                        }
-                        if(!repete) {
-                            let meio = [2,4,6,8];
-                            for(let i = 0, l = meio.length; i < l; i++) {
-                                if(plays.player.indexOf(meio[i])== -1
-                                && plays.cpu.indexOf(meio[i]) == -1) {
-                                    plays.cpu.push(meio[i]);
-                                    drawable[meio[i]-1] = player_start ? "o" : "x";
+                        if(
+                        (plays.player[0] == 1 && plays.player[1] == 8)
+                        ||
+                        (plays.player[0] == 8 && plays.player[1] == 1)) {
+                            plays.cpu.push(7);
+                            drawable[6] = player_start ? "o" : "x";
+                            updateBoard(drawable);
+                        } else if(
+                        (plays.player[0] == 3 && plays.player[1] == 8)
+                        ||
+                        (plays.player[0] == 8 && plays.player[1] == 3)) {
+                            plays.cpu.push(9);
+                            drawable[8] = player_start ? "o" : "x";
+                            updateBoard(drawable);
+                        } else {
+                            let ponta = [1,3,7,9];
+                            let repete = false;
+                            for(let i = 0, l = ponta.length; i < l; i++) {
+                                if(plays.player.indexOf(ponta[i]) == -1
+                                && plays.cpu.indexOf(ponta[i]) == -1
+                                && !repete) {
+                                    repete = true;
+                                    plays.cpu.push(ponta[i]);
+                                    drawable[ponta[i]-1] = player_start ? "o" : "x";
                                     updateBoard(drawable);
                                     break;
+                                }
+                            }
+                            if(!repete) {
+                                let meio = [2,4,6,8];
+                                for(let i = 0, l = meio.length; i < l; i++) {
+                                    if(plays.player.indexOf(meio[i])== -1
+                                    && plays.cpu.indexOf(meio[i]) == -1) {
+                                        plays.cpu.push(meio[i]);
+                                        drawable[meio[i]-1] = player_start ? "o" : "x";
+                                        updateBoard(drawable);
+                                        break;
+                                    }
                                 }
                             }
                         }

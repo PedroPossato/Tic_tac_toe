@@ -183,7 +183,7 @@
     <div id="status">&nbsp;</div>
     <script type="text/javascript">
 
-        var status = document.getElementById("status");
+        var stts = document.getElementById("status");
         var board = document.getElementById("board");
         var overlay = document.getElementById("overlay");
         var win_conditions = [[1,2,3],
@@ -211,7 +211,7 @@
                 document.querySelector("[data-index='" + i + "']").className = "";
             }
 
-            status.innerHTML = "&nbsp";
+            stts.innerHTML = "&nbsp";
             board.className = "";
 
             if(!player_start) {
@@ -351,7 +351,7 @@
                 }
             }
             if(is_draw) outcome = "Deu velha :c";
-            status.innerText = outcome;
+            stts.innerText = outcome;
             var _t = setTimeout(function() {
                 overlay.className = "";
             }, 1500);
